@@ -12,7 +12,6 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
 
-
     services:
       postgres:
         image: postgres:15-alpine
