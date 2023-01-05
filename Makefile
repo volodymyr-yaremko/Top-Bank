@@ -13,6 +13,11 @@ dropdb:
 
 	docker exec -it postgres15-alpine dropdb top_bank_db
 
+db_docs:
+	dbdocs build doc/db.dbml
+
+db_schema:
+	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
 migrateup:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
@@ -29,7 +34,13 @@ migratedown1:
 sqlc:
 	sqlc generate
 
+server:
+	go run main.go
+
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/Ayobami-00/top-bank--Golang-Postgres-Kubernetes-gRPC-/db/sqlc Store
+
 test:
 	go test -v -cover ./...
 
-.PHONY : postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test
+.PHONY : postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc test mock db_docs
