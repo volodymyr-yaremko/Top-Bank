@@ -57,6 +57,29 @@ func runDBMigration(migrationURL string, dbSource string) {
 	log.Info().Msg("db migrated successfully")
 }
 
+// func runGrpcServer(config util.Config, store db.Store, taskDistributor worker.TaskDistributor) {
+// 	server, err := gapi.NewServer(config, store, taskDistributor)
+// 	if err != nil {
+// 		log.Fatal().Err(err).Msg("cannot create server")
+// 	}
+
+// 	gprcLogger := grpc.UnaryInterceptor(gapi.GrpcLogger)
+// 	grpcServer := grpc.NewServer(gprcLogger)
+// 	pb.RegisterSimpleBankServer(grpcServer, server)
+// 	reflection.Register(grpcServer)
+
+// 	listener, err := net.Listen("tcp", config.GRPCServerAddress)
+// 	if err != nil {
+// 		log.Fatal().Err(err).Msg("cannot create listener")
+// 	}
+
+// 	log.Info().Msgf("start gRPC server at %s", listener.Addr().String())
+// 	err = grpcServer.Serve(listener)
+// 	if err != nil {
+// 		log.Fatal().Err(err).Msg("cannot start gRPC server")
+// 	}
+// }
+
 func runGinServer(config util.Config, store db.Store) {
 	server, err := api.NewServer(config, store)
 	if err != nil {

@@ -10,7 +10,7 @@ import (
 type Store interface {
 	Querier
 	TransferTx(ctx context.Context, arg TransferTxParams) (TransferTxResult, error)
-	// CreateUserTx(ctx context.Context, arg CreateUserTxParams) (CreateUserTxResult, error)
+	CreateUserTx(ctx context.Context, arg CreateUserTxParams) (CreateUserTxResult, error)
 }
 
 // SQLStore provides all functions to execute SQL queries and transactions
